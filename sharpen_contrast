@@ -1,0 +1,26 @@
+from PIL import Image, ImageEnhance
+import glob
+counter = 0
+def adjust(filename):
+    img = Image.open(filename)
+    
+    factor = 2
+    sharpen = ImageEnhance.Sharpness(img)
+    img = sharpen.enhance(factor)
+    
+    contrast = ImageEnhance.Contrast(img)
+    f = 1.5 #increase contrast
+    img_o =contrast.enhance(f)
+    
+    return img_o
+
+path = r"L:\COdes\GIT__\FrameExtract"
+
+
+
+
+for filename in glob.iglob(path + '**/*.jpg', recursive=True):
+    img = adjust(filename)
+    counter+=1
+    img.save("test_"+str(counter)+".jpg")
+    
